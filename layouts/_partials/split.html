@@ -1,12 +1,14 @@
 {{/* One photo + text section. Alternates sides automatically.
      fit: "contain" shows the whole photo (good for wide group shots);
+     fit: "match" shows the whole photo at the same height as the text,
+       so the section is only as tall as its text;
      otherwise the photo fills its half and is cropped to fit;
      anchor: "Top" (or "Bottom", "Left"...) picks which part to keep. */}}
 <section class="split {{ .class }}">
-  <div class="split-image {{ if eq .fit "contain" }}is-contain{{ end }}">
+  <div class="split-image {{ if eq .fit "contain" }}is-contain{{ else if eq .fit "match" }}is-match{{ end }}">
     {{ with .image }}{{ with $.page.Resources.Get . }}
       {{ $img := "" }}
-      {{ if eq $.fit "contain" }}
+      {{ if in (slice "contain" "match") $.fit }}
         {{ if gt .Width 1400 }}{{ $img = .Resize "1400x webp q80" }}{{ else }}{{ $img = .Process "webp q85" }}{{ end }}
       {{ else }}
         {{ $img = .Fill (printf "1000x1000 %s webp q80" ($.anchor | default "Center")) }}

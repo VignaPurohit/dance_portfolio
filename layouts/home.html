@@ -7,14 +7,14 @@
   <div class="banner-inner">
     {{ with resources.Get "images/logo.png" }}
       {{ $logo := .Resize "x560 png" }}
-      <img class="banner-logo" src="{{ $logo.RelPermalink }}" width="{{ div $logo.Width 2 }}" height="280" alt="{{ site.Params.name }} logo">
+      <img class="banner-logo" src="{{ $logo.RelPermalink }}" width="{{ div $logo.Width 2 }}" height="280" alt="{{ site.Params.name }} {{ T "logoAlt" }}">
     {{ end }}
     <p class="eyebrow">{{ site.Params.tagline }}</p>
     <h1>{{ site.Params.name }}</h1>
     <span class="divider" aria-hidden="true"></span>
     {{ with $hero.subtitle }}<p class="banner-subtitle">{{ . }}</p>{{ end }}
   </div>
-  <a class="scroll-down" href="#content" aria-label="Scroll down">&#8595;</a>
+  <a class="scroll-down" href="#content" aria-label="{{ T "scrollDown" }}">&#8595;</a>
 </section>
 
 <div id="content">

@@ -1,6 +1,25 @@
-{{/* No header bar: a three-dot button top-right opens the menu.
-     Menu items come from [menus] in hugo.toml. */}}
-<button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+{{/* No header bar. Top-right: a language switch (EN | ET) and a three-dot
+     button that opens the menu. Menu items come from [languages.*.menus] in hugo.toml. */}}
+
+{{/* Language switch: links to this page in the other language
+     (or that language's home page if this page isn't translated yet). */}}
+<nav class="lang-switch" aria-label="{{ T "language" }}">
+  {{ range hugo.Sites }}
+    {{ $lang := .Language.Lang }}
+    {{ $short := .Params.short | default (upper $lang) }}
+    {{ $label := .Language.Label }}
+    {{ if eq $lang site.Language.Lang }}
+      <span class="current" aria-current="true" title="{{ $label }}">{{ $short }}</span>
+    {{ else }}
+      {{ $url := .Home.RelPermalink }}
+      {{ range $.AllTranslations }}{{ if eq .Language.Lang $lang }}{{ $url = .RelPermalink }}{{ end }}{{ end }}
+      <a href="{{ $url }}" hreflang="{{ $lang }}" lang="{{ $lang }}" title="{{ $label }}">{{ $short }}</a>
+    {{ end }}
+  {{ end }}
+</nav>
+
+<button class="menu-button" type="button" aria-label="{{ T "openMenu" }}" aria-expanded="false" aria-controls="site-menu"
+        data-open-label="{{ T "openMenu" }}" data-close-label="{{ T "closeMenu" }}">
   <span></span><span></span><span></span>
 </button>
 
@@ -17,7 +36,7 @@
     function setOpen(open) {
       panel.hidden = !open;
       btn.setAttribute('aria-expanded', open);
-      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      btn.setAttribute('aria-label', open ? btn.dataset.closeLabel : btn.dataset.openLabel);
     }
     btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(panel.hidden); });
     document.addEventListener('click', function (e) { if (!panel.contains(e.target)) setOpen(false); });

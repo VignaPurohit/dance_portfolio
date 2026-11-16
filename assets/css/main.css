@@ -104,6 +104,34 @@ a { color: inherit; }
   background: var(--name-b);
 }
 
+/* Language switch (EN | ET), left of the three-dot button */
+.lang-switch {
+  position: fixed;
+  top: 1.25rem;
+  right: calc(clamp(1rem, 4vw, 2.5rem) + 48px + 0.5rem);
+  z-index: 30;
+  height: 48px;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+.lang-switch a,
+.lang-switch .current {
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--muted);
+}
+.lang-switch a:hover { color: var(--name-b); }
+.lang-switch .current { background: var(--name-b); color: #fff; }
+
 /* Menu panel that drops down under the button */
 .menu-panel {
   position: fixed;
@@ -243,11 +271,30 @@ a { color: inherit; }
   border-radius: 16px;
   box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.35);
 }
+/* fit: "match": whole photo, about as tall as the text beside it */
+.split:has(.is-match) { min-height: 0; }
+.split-image.is-match { position: relative; min-height: 560px; }
+.split-image.is-match img {
+  position: absolute;
+  top: 1.25rem;
+  height: calc(100% - 2.5rem);
+  width: auto;
+  max-width: calc(100% - 2.5rem);
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.35);
+}
+.split:nth-child(odd) .split-image.is-match img { right: 1.25rem; }
+.split:nth-child(even) .split-image.is-match img { left: 1.25rem; }
 .split-text {
   align-self: center;
-  padding: clamp(2rem, 6vw, 5rem);
-  max-width: 640px;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3.5vw, 3rem);
+  max-width: 760px;
 }
+/* Keep text next to its photo: extra width goes to the outer edge, not the middle */
+.split:nth-child(even) .split-text { justify-self: end; }
+.split:nth-child(odd) .split-image.is-contain { justify-content: flex-end; }
+.split:nth-child(even) .split-image.is-contain { justify-content: flex-start; }
 .split h2 {
   font-family: var(--serif);
   font-size: clamp(2rem, 4vw, 3rem);
@@ -278,4 +325,13 @@ a { color: inherit; }
   .split-image.is-contain img { height: auto; }
   .banner-logo { height: 190px; }
   .split:nth-child(even) .split-image { order: 0; }
+  .split .split-image.is-contain { justify-content: center; }
+  .split-image.is-match { min-height: 0; padding: 1rem 1rem 0; }
+  .split .split-image.is-match img {
+    position: static;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 70vh;
+  }
 }

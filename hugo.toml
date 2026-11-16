@@ -1,18 +1,44 @@
 baseURL = "https://vignapurohit.github.io/dance_portfolio/"
-locale = "en-US"
 disableKinds = ["taxonomy", "term"]
-title = "Vigna Purohit | Dance"
 
+# English is the main site; Estonian lives under /et/.
+# Page text: content/<page>.md (English) and content/<page>.et.md (Estonian).
+defaultContentLanguage = "en"
+
+# Shared settings (all languages)
 [params]
   # Colour theme: "marigold", "rani" or "peacock"
   theme = "marigold"
   name = "Vigna Purohit"
-  tagline = "Learner · Dancer · Performer · Teacher"
-  description = "Vigna Purohit: Kathak dancer, performer and teacher."
 
-# Navigation: add an entry here each time we add a new section.
-[menus]
-  [[menus.main]]
-    name = "Home"
-    pageRef = "/"
+# Languages are defined in [languages] below.
+
+[languages]
+  [languages.en]
+    label = "English"
+    locale = "en-US"
     weight = 1
+    title = "Vigna Purohit | Dance"
+    [languages.en.params]
+      short = "EN"
+      tagline = "Learner · Dancer · Performer · Teacher"
+      description = "Vigna Purohit: Kathak dancer, performer and teacher."
+    # Navigation: add an entry here each time we add a new section.
+    [[languages.en.menus.main]]
+      name = "Home"
+      pageRef = "/"
+      weight = 1
+
+  [languages.et]
+    label = "Eesti"
+    locale = "et-EE"
+    weight = 2
+    title = "Vigna Purohit | Tants"
+    [languages.et.params]
+      short = "ET"
+      tagline = "Õppija · Tantsija · Esineja · Õpetaja"
+      description = "Vigna Purohit: kathaki tantsija, esineja ja õpetaja."
+    [[languages.et.menus.main]]
+      name = "Avaleht"
+      pageRef = "/"
+      weight = 1
