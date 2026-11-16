@@ -1,4 +1,4 @@
-baseURL = "https://example.org/"
+baseURL = "https://vignapurohit.github.io/dance_portfolio/"
 locale = "en-US"
 disableKinds = ["taxonomy", "term"]
 title = "Vigna Purohit | Dance"

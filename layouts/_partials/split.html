@@ -19,6 +19,6 @@
     {{ with .title }}<h2>{{ . }}</h2>{{ end }}
     <span class="divider" aria-hidden="true"></span>
     <div class="split-body">{{ .body }}</div>
-    {{ with .link }}<a class="read-more" href="{{ .url | relURL }}">{{ .text }} <span aria-hidden="true">&rarr;</span></a>{{ end }}
+    {{ with .link }}<a class="read-more" href="{{ strings.TrimPrefix "/" .url | relURL }}">{{ .text }} <span aria-hidden="true">&rarr;</span></a>{{ end }}
   </div>
 </section>
