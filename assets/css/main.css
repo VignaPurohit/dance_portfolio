@@ -256,6 +256,19 @@ a { color: inherit; }
 }
 .split-body p { margin-bottom: 1rem; font-size: 1.05rem; }
 .split.intro .split-body p:last-child { color: var(--muted); font-style: italic; }
+.read-more {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  background: var(--name-b);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.read-more:hover { background: var(--name-a); transform: translateX(3px); }
 .split:nth-child(even) { background: var(--glow-1); }
 .split:nth-child(even) .split-image { order: 2; }
 

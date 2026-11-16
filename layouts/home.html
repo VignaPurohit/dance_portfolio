@@ -20,11 +20,11 @@
 <div id="content">
   {{/* Intro section uses the page's main text */}}
   {{ with .Params.intro }}
-    {{ partial "split.html" (dict "page" $page "image" .image "eyebrow" .eyebrow "title" .title "body" $page.Content "class" "intro") }}
+    {{ partial "split.html" (dict "page" $page "image" .image "anchor" .anchor "eyebrow" .eyebrow "title" .title "body" $page.Content "link" .link "class" "intro") }}
   {{ end }}
 
   {{ range .Params.blocks }}
-    {{ partial "split.html" (dict "page" $page "image" .image "fit" .fit "eyebrow" .eyebrow "title" .title "body" (.text | markdownify)) }}
+    {{ partial "split.html" (dict "page" $page "image" .image "fit" .fit "anchor" .anchor "eyebrow" .eyebrow "title" .title "body" (.text | markdownify)) }}
   {{ end }}
 </div>
 {{ end }}

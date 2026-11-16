@@ -1,6 +1,7 @@
 {{/* One photo + text section. Alternates sides automatically.
      fit: "contain" shows the whole photo (good for wide group shots);
-     otherwise the photo fills its half and is cropped to fit. */}}
+     otherwise the photo fills its half and is cropped to fit;
+     anchor: "Top" (or "Bottom", "Left"...) picks which part to keep. */}}
 <section class="split {{ .class }}">
   <div class="split-image {{ if eq .fit "contain" }}is-contain{{ end }}">
     {{ with .image }}{{ with $.page.Resources.Get . }}
@@ -8,7 +9,7 @@
       {{ if eq $.fit "contain" }}
         {{ if gt .Width 1400 }}{{ $img = .Resize "1400x webp q80" }}{{ else }}{{ $img = .Process "webp q85" }}{{ end }}
       {{ else }}
-        {{ $img = .Fill "1000x1000 Center webp q80" }}
+        {{ $img = .Fill (printf "1000x1000 %s webp q80" ($.anchor | default "Center")) }}
       {{ end }}
       <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="" loading="lazy">
     {{ end }}{{ end }}
@@ -18,5 +19,6 @@
     {{ with .title }}<h2>{{ . }}</h2>{{ end }}
     <span class="divider" aria-hidden="true"></span>
     <div class="split-body">{{ .body }}</div>
+    {{ with .link }}<a class="read-more" href="{{ .url | relURL }}">{{ .text }} <span aria-hidden="true">&rarr;</span></a>{{ end }}
   </div>
 </section>
