@@ -1,0 +1,18 @@
+baseURL = "https://example.org/"
+locale = "en-US"
+disableKinds = ["taxonomy", "term"]
+title = "Vigna Purohit | Dance"
+
+[params]
+  # Colour theme: "marigold", "rani" or "peacock"
+  theme = "marigold"
+  name = "Vigna Purohit"
+  tagline = "Learner · Dancer · Performer · Teacher"
+  description = "Vigna Purohit: Kathak dancer, performer and teacher."
+
+# Navigation: add an entry here each time we add a new section.
+[menus]
+  [[menus.main]]
+    name = "Home"
+    pageRef = "/"
+    weight = 1

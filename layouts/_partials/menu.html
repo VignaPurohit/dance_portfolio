@@ -1,0 +1,26 @@
+{{/* No header bar: a three-dot button top-right opens the menu.
+     Menu items come from [menus] in hugo.toml. */}}
+<button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="menu-panel" id="site-menu" hidden>
+  {{ range site.Menus.main }}
+    <a href="{{ .URL }}" {{ if $.IsMenuCurrent "main" . }}class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+  {{ end }}
+</nav>
+
+<script>
+  (function () {
+    var btn = document.querySelector('.menu-button');
+    var panel = document.getElementById('site-menu');
+    function setOpen(open) {
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', open);
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(panel.hidden); });
+    document.addEventListener('click', function (e) { if (!panel.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+  })();
+</script>

@@ -1,0 +1,30 @@
+{{ define "main" }}
+{{ $page := . }}
+
+{{/* Full-screen banner: logo, tagline, name and subtitle on an artistic black background */}}
+{{ $hero := .Params.hero | default dict }}
+<section class="banner">
+  <div class="banner-inner">
+    {{ with resources.Get "images/logo.png" }}
+      {{ $logo := .Resize "x560 png" }}
+      <img class="banner-logo" src="{{ $logo.RelPermalink }}" width="{{ div $logo.Width 2 }}" height="280" alt="{{ site.Params.name }} logo">
+    {{ end }}
+    <p class="eyebrow">{{ site.Params.tagline }}</p>
+    <h1>{{ site.Params.name }}</h1>
+    <span class="divider" aria-hidden="true"></span>
+    {{ with $hero.subtitle }}<p class="banner-subtitle">{{ . }}</p>{{ end }}
+  </div>
+  <a class="scroll-down" href="#content" aria-label="Scroll down">&#8595;</a>
+</section>
+
+<div id="content">
+  {{/* Intro section uses the page's main text */}}
+  {{ with .Params.intro }}
+    {{ partial "split.html" (dict "page" $page "image" .image "eyebrow" .eyebrow "title" .title "body" $page.Content "class" "intro") }}
+  {{ end }}
+
+  {{ range .Params.blocks }}
+    {{ partial "split.html" (dict "page" $page "image" .image "fit" .fit "eyebrow" .eyebrow "title" .title "body" (.text | markdownify)) }}
+  {{ end }}
+</div>
+{{ end }}

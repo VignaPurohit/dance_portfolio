@@ -1,0 +1,268 @@
+/* ============================================================
+   THEMES: pick one in hugo.toml →  [params] theme = "marigold"
+   Each theme only sets colours; the layout below is shared.
+   ============================================================ */
+
+/* Marigold: warm cream, genda-phool orange, rani pink, maroon text */
+.theme-marigold {
+  --bg: #fff7e8;
+  --glow-1: rgba(255, 153, 0, 0.22);
+  --glow-2: rgba(214, 36, 110, 0.14);
+  --text: #4a1c1c;
+  --muted: #8a5a4a;
+  --accent: #c2185b;
+  --name-a: #e8590c;
+  --name-b: #c2185b;
+  --subtitle: #a0522d;
+  --frame-c: #e9b44c;
+  --line: rgba(194, 24, 91, 0.25);
+  --dots: #e8590c;
+}
+
+/* Rani: soft pink, magenta, gold zari */
+.theme-rani {
+  --bg: #fff0f5;
+  --glow-1: rgba(214, 36, 110, 0.20);
+  --glow-2: rgba(240, 165, 0, 0.18);
+  --text: #3d0a2a;
+  --muted: #84506b;
+  --accent: #b8860b;
+  --name-a: #d6246e;
+  --name-b: #8e1b5c;
+  --subtitle: #b8860b;
+  --frame-c: #d6246e;
+  --line: rgba(184, 134, 11, 0.35);
+  --dots: #d6246e;
+}
+
+/* Peacock: mint-white, peacock teal, pink and gold (matches the costume) */
+.theme-peacock {
+  --bg: #effaf7;
+  --glow-1: rgba(14, 140, 134, 0.20);
+  --glow-2: rgba(214, 51, 132, 0.14);
+  --text: #0b3536;
+  --muted: #4f6f6c;
+  --accent: #d63384;
+  --name-a: #0e8c86;
+  --name-b: #1b4f8c;
+  --subtitle: #c27c0e;
+  --frame-c: #d63384;
+  --line: rgba(14, 140, 134, 0.3);
+  --dots: #0e8c86;
+}
+
+:root {
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "Poppins", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background:
+    radial-gradient(circle at 10% 15%, var(--glow-1), transparent 45%),
+    radial-gradient(circle at 90% 85%, var(--glow-2), transparent 45%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; }
+a { color: inherit; }
+
+/* Three-dot menu button (top-right, always visible) */
+.menu-button {
+  position: fixed;
+  top: 1.25rem;
+  right: clamp(1rem, 4vw, 2.5rem);
+  z-index: 30;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.menu-button:hover { transform: scale(1.07); }
+.menu-button span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--name-b);
+}
+
+/* Menu panel that drops down under the button */
+.menu-panel {
+  position: fixed;
+  top: 4.75rem;
+  right: clamp(1rem, 4vw, 2.5rem);
+  z-index: 30;
+  min-width: 200px;
+  padding: 0.5rem;
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+.menu-panel[hidden] { display: none; }
+.menu-panel a {
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.menu-panel a:hover { background: var(--glow-1); }
+.menu-panel a.active { color: var(--accent); }
+
+/* Shared label above headings */
+.eyebrow {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Generic page */
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem clamp(1rem, 5vw, 2rem);
+}
+.page h1 { font-family: var(--serif); color: var(--name-b); margin-bottom: 1.5rem; }
+.page p { margin-bottom: 1rem; }
+
+/* ============ Home page ============ */
+.divider {
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin: 1.25rem 0;
+  background: linear-gradient(90deg, var(--name-a), var(--name-b));
+  border-radius: 2px;
+}
+
+/* Full-screen banner: black, with soft gold/rani/teal glows
+   and faint concentric rings radiating from the logo */
+.banner {
+  position: relative;
+  overflow: hidden;
+  min-height: min(92vh, 860px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 1rem 4rem;
+  color: #fff;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(233, 180, 76, 0.20), transparent 38%),
+    radial-gradient(ellipse at 10% 95%, rgba(194, 24, 91, 0.30), transparent 50%),
+    radial-gradient(ellipse at 92% 8%, rgba(14, 140, 134, 0.22), transparent 45%),
+    #0a0607;
+}
+.banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(circle at 50% 35%,
+    rgba(233, 180, 76, 0.10) 0 1px, transparent 1px 34px);
+  -webkit-mask-image: radial-gradient(circle at 50% 35%, #000 10%, transparent 65%);
+  mask-image: radial-gradient(circle at 50% 35%, #000 10%, transparent 65%);
+}
+.banner-inner { position: relative; max-width: 800px; }
+.banner-logo {
+  display: block;
+  height: 280px;
+  width: auto;
+  margin: 0 auto 1.5rem;
+  filter: drop-shadow(0 0 30px rgba(233, 180, 76, 0.25));
+}
+.banner .eyebrow { color: var(--frame-c); }
+.banner h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.75rem, 8vw, 5.5rem);
+  line-height: 1.05;
+}
+.banner .divider { margin: 1.25rem auto; }
+.banner-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: #fff3dc;
+}
+.scroll-down {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #fff;
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob { 50% { transform: translate(-50%, 8px); } }
+
+/* Alternating photo / text sections */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: min(70vh, 620px);
+}
+.split-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.split-image.is-contain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+}
+.split-image.is-contain img {
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  max-height: 560px;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.35);
+}
+.split-text {
+  align-self: center;
+  padding: clamp(2rem, 6vw, 5rem);
+  max-width: 640px;
+}
+.split h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  color: var(--name-b);
+}
+.split-body p { margin-bottom: 1rem; font-size: 1.05rem; }
+.split.intro .split-body p:last-child { color: var(--muted); font-style: italic; }
+.split:nth-child(even) { background: var(--glow-1); }
+.split:nth-child(even) .split-image { order: 2; }
+
+@media (max-width: 760px) {
+  .split { grid-template-columns: 1fr; min-height: 0; }
+  .split-image img { height: 60vh; }
+  .split-image.is-contain img { height: auto; }
+  .banner-logo { height: 190px; }
+  .split:nth-child(even) .split-image { order: 0; }
+}
