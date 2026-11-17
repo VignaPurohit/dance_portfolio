@@ -366,6 +366,7 @@ body.section-reading-corner {
   margin: 0 auto;
   padding: 6rem clamp(1rem, 4vw, 2.5rem) 4rem;
 }
+.rc.rc-wide { max-width: 1360px; }
 .rc-ghungroo { display: block; margin: 1.25rem auto; color: #a5741c; max-width: 100%; height: auto; }
 .rc-icon {
   display: inline-flex;
@@ -452,19 +453,6 @@ body.section-reading-corner {
 .rc-card h2 a:hover { color: var(--acc); }
 .rc-card h2 a::after { content: " \2192"; color: var(--acc); font-size: 0.8em; }
 .rc-desc { margin-top: 0.6rem; font-size: 0.97rem; color: #6a4a40; }
-.rc-list { list-style: none; margin-top: 1.1rem; border-top: 1px dashed rgba(120, 70, 40, 0.25); }
-.rc-list li { border-bottom: 1px dashed rgba(120, 70, 40, 0.25); }
-.rc-list a {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  padding: 0.65rem 0;
-  font-weight: 500;
-  color: var(--ink);
-  text-decoration: none;
-}
-.rc-list a::before { content: "\2766"; color: var(--acc); font-size: 0.9rem; }
-.rc-list a:hover { color: var(--acc); }
 .rc-card .rc-empty { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed rgba(120, 70, 40, 0.25); }
 
 /* Category page */
@@ -487,47 +475,121 @@ body.section-reading-corner {
   transition: transform 0.2s;
 }
 .rc-article-card:hover { transform: translateX(4px); }
-.rc-article-card h2 { font-family: var(--serif); font-size: 1.45rem; line-height: 1.25; }
+.rc-article-cat {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+.rc-article-title { margin-top: 0.3rem; font-family: var(--serif); font-size: 1.45rem; line-height: 1.25; }
 .rc-article-card p { margin-top: 0.4rem; color: #6a4a40; }
+.rc-article-card:hover .rc-article-title { color: var(--acc); }
+/* Article cards inside a category card on the main Reading Corner page */
+.rc-card-articles { display: grid; gap: 0.75rem; margin-top: 1.1rem; }
+.rc-card-articles .rc-article-card {
+  padding: 1rem 1.15rem;
+  background: var(--acc-soft);
+  border-color: transparent;
+  border-left-width: 4px;
+  box-shadow: none;
+}
+.rc-card-articles .rc-article-title { font-size: 1.2rem; }
+.rc-card-articles .rc-article-card p { font-size: 0.93rem; }
 .rc-read { display: inline-block; margin-top: 0.6rem; font-weight: 500; font-size: 0.9rem; color: var(--acc); }
 
-/* Article page: a ruled journal sheet */
+/* Article page: a journal sheet */
 .rc-sheet {
-  max-width: 760px;
+  --pad: clamp(1.25rem, 5vw, 3.5rem);
+  --line: 2rem;               /* base vertical rhythm of the sheet */
+  max-width: 1280px;
   margin: 0 auto;
-  padding: clamp(1.75rem, 5vw, 3.5rem);
-  background:
-    repeating-linear-gradient(180deg, transparent 0 31px, rgba(14, 127, 122, 0.08) 31px 32px),
-    #fffaf1;
+  padding: calc(2 * var(--line)) var(--pad) var(--line);
+  /* Logo watermark: stays in the middle of the screen while the story scrolls */
+  background: var(--wm, none) center 55% / min(460px, 70%) no-repeat fixed, #fffaf1;
   border: 1px solid rgba(120, 70, 40, 0.14);
   border-top: 5px solid var(--acc);
   border-radius: 6px;
   box-shadow: 0 30px 60px -40px rgba(80, 30, 20, 0.55);
 }
+.rc-sheet .rc-back { display: block; width: max-content; line-height: var(--line); }
 .rc-sheet h1 {
-  margin-top: 1.25rem;
+  margin-top: var(--line);
   font-family: var(--serif);
   font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--ink);
   text-align: center;
 }
-.rc-sheet-lead { text-align: center; font-style: italic; color: var(--muted); margin-top: 0.5rem; }
-.rc-body { font-size: 1.08rem; line-height: 1.85; }
-.rc-body p { margin-bottom: 1.1rem; }
-.rc-body h2, .rc-body h3 { font-family: var(--serif); margin: 2rem 0 0.75rem; color: var(--acc); }
+.rc-sheet-lead {
+  max-width: 34em;
+  margin: 0.6rem auto 0;
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--muted);
+}
+.rc-sheet .rc-ghungroo { margin: 1.25rem auto 0; }
+.rc-body {
+  padding-top: var(--line);
+  font-size: 1.08rem;
+  line-height: var(--line);
+}
+.rc-body p { margin: 0 0 1.1rem; }
+.rc-body h2, .rc-body h3 {
+  margin: 2.25rem 0 0.6rem;
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  line-height: var(--line);
+  color: var(--acc);
+}
+.rc-body h2::before {
+  content: "\2766";
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.7;
+}
+.rc-body > p:first-child::first-letter {
+  float: left;
+  margin: 0 0.3rem 0 0;
+  padding-top: 0.35rem;
+  font-family: var(--serif);
+  font-size: 3.4rem;
+  line-height: calc(2 * var(--line) - 0.6rem);
+  color: var(--acc);
+}
+/* Thin bar at the top of article pages that fills as you read */
+.rc-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 40;
+  pointer-events: none;
+}
+.rc-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #e9b44c, #c2185b);
+  transform: scaleX(0);
+  transform-origin: left;
+}
 .rc-body blockquote {
-  margin: 1.5rem 0;
+  margin: 0 0 var(--line);
   padding-left: 1.25rem;
   border-left: 3px solid var(--acc);
   font-family: var(--serif);
   font-style: italic;
 }
 .rc-body img { max-width: 100%; height: auto; border-radius: 10px; }
-.rc-sheet-foot { max-width: 760px; margin: 1.5rem auto 0; text-align: center; }
+.rc-sheet-foot { max-width: 1280px; margin: 1.5rem auto 0; text-align: center; }
 
 @media (max-width: 760px) {
   .rc { padding-top: 5.5rem; }
+  .rc-sheet h1 { font-size: 1.8rem; line-height: 1.25; }
   .rc-grid { grid-template-columns: 1fr; }
   .rc-card { padding: 1.5rem 1.25rem 1.25rem 2.3rem; }
 }

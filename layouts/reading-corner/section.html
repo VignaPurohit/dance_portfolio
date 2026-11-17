@@ -24,9 +24,9 @@
         <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
         <p class="rc-desc">{{ .Description }}</p>
         {{ with .RegularPages }}
-          <ul class="rc-list">
-            {{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
-          </ul>
+          <div class="rc-card-articles">
+            {{ range . }}{{ partial "rc-article-card.html" (dict "page" . "heading" "h3") }}{{ end }}
+          </div>
         {{ else }}
           <p class="rc-empty">{{ T "rcEmpty" }}</p>
         {{ end }}
@@ -46,11 +46,7 @@
 
   <div class="rc-articles accent-{{ .Params.accent | default "rani" }}">
     {{ range .RegularPages }}
-      <a class="rc-article-card" href="{{ .RelPermalink }}">
-        <h2>{{ .Title }}</h2>
-        {{ with .Description }}<p>{{ . }}</p>{{ end }}
-        <span class="rc-read">{{ T "rcRead" }} &rarr;</span>
-      </a>
+      {{ partial "rc-article-card.html" (dict "page" . "heading" "h2") }}
     {{ else }}
       <p class="rc-empty">{{ T "rcEmpty" }}</p>
     {{ end }}

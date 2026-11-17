@@ -1,15 +1,39 @@
-{{/* A single Reading Corner article, shown like a page from a journal. */}}
+{{/* A single Reading Corner article, shown like a page from a journal.
+     Text lives in the article's Markdown file; this layout is shared by every article. */}}
 {{ define "main" }}
-<div class="rc">
-  <article class="rc-sheet accent-{{ .Parent.Params.accent | default "rani" }}">
-    <a class="rc-back" href="{{ .Parent.RelPermalink }}">&larr; {{ .Parent.Title }}</a>
-    <h1>{{ .Title }}</h1>
-    {{ with .Description }}<p class="rc-sheet-lead">{{ . }}</p>{{ end }}
-    {{ partial "rc-ghungroo.html" . }}
+<div class="rc-progress" aria-hidden="true"><span></span></div>
+<div class="rc rc-wide">
+  {{/* Faded logo used as a watermark behind the story */}}
+  {{ $wm := "" }}
+  {{ with resources.Get "images/logo.png" }}
+    {{ $wm = (.Resize "560x png").Filter (images.Opacity 0.07) }}
+  {{ end }}
+  <article class="rc-sheet accent-{{ .Parent.Params.accent | default "rani" }}"{{ with $wm }} style="--wm: url({{ .RelPermalink }})"{{ end }}>
+    <header class="rc-sheet-head">
+      <a class="rc-back" href="{{ .Parent.RelPermalink }}">&larr; {{ .Parent.Title }}</a>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.subtitle | default .Description }}<p class="rc-sheet-lead">{{ . }}</p>{{ end }}
+      {{ partial "rc-ghungroo.html" . }}
+    </header>
     <div class="rc-body">{{ .Content }}</div>
   </article>
-  <p class="rc-sheet-foot">
+  <nav class="rc-sheet-foot" aria-label="{{ T "rcBackToCorner" }}">
     <a class="rc-back" href="{{ .Parent.Parent.RelPermalink }}">&larr; {{ T "rcBackToCorner" }}</a>
-  </p>
+  </nav>
 </div>
+<script>
+  (function () {
+    var bar = document.querySelector('.rc-progress span');
+    var sheet = document.querySelector('.rc-sheet');
+    function update() {
+      var r = sheet.getBoundingClientRect();
+      var total = r.height - window.innerHeight;
+      var done = total > 0 ? Math.min(Math.max(-r.top / total, 0), 1) : 1;
+      bar.style.transform = 'scaleX(' + done + ')';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
 {{ end }}

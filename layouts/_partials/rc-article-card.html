@@ -1,0 +1,10 @@
+{{/* One article card, used on the Reading Corner page and on category pages.
+     Call with (dict "page" $article "heading" "h2" or "h3").
+     The text comes from the article's front matter: title and summary. */}}
+{{ $p := .page }}{{ $h := .heading | default "h3" }}
+<a class="rc-article-card" href="{{ $p.RelPermalink }}">
+  <span class="rc-article-cat">{{ $p.Parent.Title }}</span>
+  {{ printf "<%s class=\"rc-article-title\">%s</%s>" $h $p.Title $h | safeHTML }}
+  {{ with $p.Summary }}<p>{{ . | plainify }}</p>{{ end }}
+  <span class="rc-read">{{ T "rcReadStory" }} &rarr;</span>
+</a>
