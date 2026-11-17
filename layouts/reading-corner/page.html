@@ -1,0 +1,15 @@
+{{/* A single Reading Corner article, shown like a page from a journal. */}}
+{{ define "main" }}
+<div class="rc">
+  <article class="rc-sheet accent-{{ .Parent.Params.accent | default "rani" }}">
+    <a class="rc-back" href="{{ .Parent.RelPermalink }}">&larr; {{ .Parent.Title }}</a>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="rc-sheet-lead">{{ . }}</p>{{ end }}
+    {{ partial "rc-ghungroo.html" . }}
+    <div class="rc-body">{{ .Content }}</div>
+  </article>
+  <p class="rc-sheet-foot">
+    <a class="rc-back" href="{{ .Parent.Parent.RelPermalink }}">&larr; {{ T "rcBackToCorner" }}</a>
+  </p>
+</div>
+{{ end }}

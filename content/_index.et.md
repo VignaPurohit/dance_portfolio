@@ -11,7 +11,7 @@ intro:
   title: "Minu teekond kathakiga"
   link:
     text: "Loe minu lugu: Minu kathakiteekonna paljud pöörded"
-    url: "/et/my-story/"
+    url: "/et/reading-corner/stories-close-to-my-heart/the-many-turns-of-my-kathak-journey/"
 
 blocks:
   - image: "images/work-1.png"

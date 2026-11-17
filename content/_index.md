@@ -12,7 +12,7 @@ intro:
   title: "My Journey with Kathak"
   link:
     text: "Read my story: The Many Turns of My Kathak Journey"
-    url: "/my-story/"
+    url: "/reading-corner/stories-close-to-my-heart/the-many-turns-of-my-kathak-journey/"
 
 # More alternating photo / text sections. Add, remove or reorder freely.
 blocks:

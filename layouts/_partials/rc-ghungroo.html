@@ -1,0 +1,9 @@
+{{/* A delicate string of ghungroo bells, used as a divider in the Reading Corner. */}}
+<svg class="rc-ghungroo" viewBox="0 0 180 32" width="180" height="32" aria-hidden="true">
+  <path d="M4 8 Q90 22 176 8" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.7"/>
+  {{ range slice (slice 30 11.6) (slice 50 13.5) (slice 70 14.6) (slice 90 15) (slice 110 14.6) (slice 130 13.5) (slice 150 11.6) }}
+    {{ $x := index . 0 }}{{ $y := add (index . 1) 5 }}
+    <circle cx="{{ $x }}" cy="{{ $y }}" r="4.2" fill="#e9b44c" stroke="#a5741c" stroke-width="0.8"/>
+    <path d="M{{ sub $x 2 }} {{ add $y 1.4 }}h4" stroke="#7a5414" stroke-width="0.9" stroke-linecap="round"/>
+  {{ end }}
+</svg>

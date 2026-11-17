@@ -28,6 +28,10 @@ defaultContentLanguage = "en"
       name = "Home"
       pageRef = "/"
       weight = 1
+    [[languages.en.menus.main]]
+      name = "Reading Corner"
+      pageRef = "/reading-corner"
+      weight = 2
 
   [languages.et]
     label = "Eesti"
@@ -42,3 +46,7 @@ defaultContentLanguage = "en"
       name = "Avaleht"
       pageRef = "/"
       weight = 1
+    [[languages.et.menus.main]]
+      name = "Lugemisnurk"
+      pageRef = "/reading-corner"
+      weight = 2

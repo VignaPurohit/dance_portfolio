@@ -1,0 +1,61 @@
+{{/* Reading Corner: the main page (/reading-corner/) and each category page. */}}
+{{ define "main" }}
+<div class="rc">
+
+{{ if eq .Path "/reading-corner" }}
+  {{/* ---------- Main Reading Corner page ---------- */}}
+  <header class="rc-hero">
+    {{ with resources.Get "images/logo.png" }}
+      {{ $logo := .Resize "x200 png" }}
+      <img class="rc-logo" src="{{ $logo.RelPermalink }}" width="{{ div $logo.Width 2 }}" height="100" alt="">
+    {{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.tagline }}<p class="rc-tagline">{{ . }}</p>{{ end }}
+    {{ partial "rc-ghungroo.html" . }}
+    {{ with .Params.intro }}<p class="rc-intro">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="rc-grid">
+    {{ range .Sections.ByWeight }}
+      <article class="rc-card accent-{{ .Params.accent | default "rani" }}">
+        <div class="rc-card-head">
+          <span class="rc-icon">{{ partial "rc-icon.html" .Params.icon }}</span>
+        </div>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p class="rc-desc">{{ .Description }}</p>
+        {{ with .RegularPages }}
+          <ul class="rc-list">
+            {{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+          </ul>
+        {{ else }}
+          <p class="rc-empty">{{ T "rcEmpty" }}</p>
+        {{ end }}
+      </article>
+    {{ end }}
+  </div>
+
+{{ else }}
+  {{/* ---------- Category page ---------- */}}
+  <header class="rc-cat-hero accent-{{ .Params.accent | default "rani" }}">
+    <a class="rc-back" href="{{ .Parent.RelPermalink }}">&larr; {{ .Parent.Title }}</a>
+    <span class="rc-icon">{{ partial "rc-icon.html" .Params.icon }}</span>
+    <h1>{{ .Title }}</h1>
+    <p class="rc-desc">{{ .Description }}</p>
+    {{ partial "rc-ghungroo.html" . }}
+  </header>
+
+  <div class="rc-articles accent-{{ .Params.accent | default "rani" }}">
+    {{ range .RegularPages }}
+      <a class="rc-article-card" href="{{ .RelPermalink }}">
+        <h2>{{ .Title }}</h2>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+        <span class="rc-read">{{ T "rcRead" }} &rarr;</span>
+      </a>
+    {{ else }}
+      <p class="rc-empty">{{ T "rcEmpty" }}</p>
+    {{ end }}
+  </div>
+{{ end }}
+
+</div>
+{{ end }}
